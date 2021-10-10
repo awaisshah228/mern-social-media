@@ -7,13 +7,13 @@ import '../styles/login.css'
 
 const Login = () => {
     const initialState={email:'',password:''}
-    const [userData, setuserData] = useState(initialState)
+    const [userData, setUserData] = useState(initialState)
     const [typePass, setTypePass] = useState(false)
     const {email,password}=userData
     const dispatch = useDispatch()
     const handleChangeInput=(e)=>{
         const {name,value}=e.target
-        setuserData({...userData,[name]:value})
+        setUserData({...userData,[name]:value})
     }
     const handleSubmit=e=>{
       e.preventDefault()
