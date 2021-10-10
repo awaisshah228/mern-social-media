@@ -1,55 +1,67 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { login } from '../redux/actions/authAction'
+import {useDispatch} from 'react-redux'
 import '../styles/login.css'
 
 const Login = () => {
     const initialState={email:'',password:''}
     const [userData, setuserData] = useState(initialState)
+    const [typePass, setTypePass] = useState(false)
     const {email,password}=userData
+    const dispatch = useDispatch()
     const handleChangeInput=(e)=>{
         const {name,value}=e.target
         setuserData({...userData,[name]:value})
     }
+    const handleSubmit=e=>{
+      e.preventDefault()
+      //console.log(userData)
+      dispatch(login(userData))
+    }
     return (
-        <div class="container">
-        <div class="row">
-          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <div class="card border-0 shadow rounded-3 my-5">
-              <div class="card-body p-4 p-sm-5">
-                <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
-                <form>
-                  <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" onChange={handleChangeInput} name="email" value={email} />
-                    <label for="floatingInput">Email address</label>
+        <div className="container">
+        <div className="row">
+          <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div className="card border-0 shadow rounded-3 my-5">
+              <div className="card-body p-4 p-sm-5">
+                <h5 className="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
+                <form onSubmit={handleSubmit}>
+                  <div className="form-floating mb-3">
+                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" onChange={handleChangeInput} name="email" value={email} />
+                    <label htmlFor="floatingInput">Email address</label>
                   </div>
-                  <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" onChange={handleChangeInput} name="password" value={password}/>
-                    <label for="floatingPassword">Password</label>
+                  <div className="form-floating mb-3">
+                    <input type={ typePass ? "text" : "password" }  className="form-control" id="floatingPassword" placeholder="Password" onChange={handleChangeInput} name="password" value={password}/>
+                    <label htmlFor="floatingPassword">Password</label>
+                    <small onClick={() => setTypePass(!typePass)}>
+                            {typePass ? 'Hide' : 'Show'}
+                        </small>
                   </div>
     
-                  <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck"/>
-                    <label class="form-check-label" for="rememberPasswordCheck">
+                  <div className="form-check mb-3">
+                    <input className="form-check-input" type="checkbox" value="" id="rememberPasswordCheck"/>
+                    <label className="form-check-label" htmlFor="rememberPasswordCheck">
                       Remember password
                     </label>
                   </div>
-                  <div class="d-grid">
-                    <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit" disabled={email && password ?false: true}>Sign
+                  <div className="d-grid">
+                    <button className="btn btn-primary btn-login text-uppercase fw-bold" type="submit" disabled={email && password ?false: true}>Sign
                       in</button>
                   </div>
-                  <hr class="my-4"/>
-                  {/* <div class="d-grid mb-2">
-                    <button class="btn btn-google btn-login text-uppercase fw-bold" type="submit">
-                      <i class="fab fa-google me-2"></i> Sign in with Google
+                  <hr className="my-4"/>
+                  {/* <div className="d-grid mb-2">
+                    <button className="btn btn-google btn-login text-uppercase fw-bold" type="submit">
+                      <i className="fab fa-google me-2"></i> Sign in with Google
                     </button>
                   </div>
-                  <div class="d-grid">
-                    <button class="btn btn-facebook btn-login text-uppercase fw-bold" type="submit">
-                      <i class="fab fa-facebook-f me-2"></i> Sign in with Facebook
+                  <div className="d-grid">
+                    <button className="btn btn-facebook btn-login text-uppercase fw-bold" type="submit">
+                      <i className="fab fa-facebook-f me-2"></i> Sign in with Facebook
                     </button>
                   </div> */}
-                  <div class="text-center">
+                  <div className="text-center">
                     <Link to='/register'>Create Account</Link>
                   </div>
                 </form>

@@ -4,15 +4,16 @@ const express=require('express')
 const mongoose=require('mongoose')
 const cors= require('cors')
 const cookieParser=require('cookie-parser')
-const bodyParser=require('body-parser')
-
 //variable
 const app=express()
 const port=process.env.PORT || 5000
 const mongo_uri=process.env.MONGO_DB_URL
 
 // middlewares
-app.use(cors())
+app.use(cors({
+    origin : ["http://localhost:3000"],
+    credentials : true
+}))
 app.use(cookieParser())
 app.use(express.json())
 // database connection
