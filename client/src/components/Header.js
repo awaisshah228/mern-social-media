@@ -2,12 +2,13 @@ import React from 'react'
 import { Navbar,Container,Nav,NavDropdown } from 'react-bootstrap'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
-import {Link} from 'react-router-dom'
+import {Link,useLocation} from 'react-router-dom'
 import MessageIcon from '@mui/icons-material/Message';
 import GroupIcon from '@mui/icons-material/Group';
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 import {useSelector,useDispatch} from 'react-redux'
 import {logout} from '../redux/actions/authAction'
+import { GLOBALTYPES } from '../redux/actions/globalType';
 
 
 const Header = () => {
@@ -17,8 +18,13 @@ const Header = () => {
         { label : 'Discover', path: '/discover', icon :<GroupIcon/>},
         { label : 'Notification', path: '/notify', icon :<CircleNotificationsIcon/>},
     ]
-    const {auth}=useSelector(state=>state)
+    const {auth,theme}=useSelector(state=>state)
     const dispatch=useDispatch()
+    const { pathname } = useLocation()
+
+    const isActive = (pn) => {
+        if(pn === pathname) return 'active'
+    }
     return (
         <div>
                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -36,14 +42,15 @@ const Header = () => {
                         <Nav>
                         {
                                 navlinks.map((link,index)=>{
-                                  return(<Link key={index} to={link.path} className='nav-link'>{link.icon}</Link>)  
+                                  return(<Link key={index} to={link.path} className={`nav-link ${isActive(link.path)}`}>{link.icon}</Link>)  
                                   //<h1>hello</h1>
                                 })
                             }
+                            {/* <Link  to='/' className={'nav-link active'}><HomeIcon/></Link> */}
                         {/* <NavDropdown.Toggle id="collasible-nav-dropdown">Pow! Zoom!</NavDropdown.Toggle> */}
                         <NavDropdown title={<AccountCircleIcon/>} id="collasible-nav-dropdown" className='mx-3'>
                             <Link  to="/profile" className='dropdown-item'>Profle</Link>
-                            <Link  to="/" className='dropdown-item'>Dark Mode</Link>
+                            <Link  to="/" className='dropdown-item'  onClick={() => dispatch({type: GLOBALTYPES.THEME, payload: !theme  })}>{theme?"LightMode": "Dark Mode"}</Link>
                             <NavDropdown.Divider />
                             <Link  to="/" className='dropdown-item' onClick={()=>dispatch(logout())}>Logout</Link>
 

@@ -10,7 +10,7 @@ import {refreshToken} from './redux/actions/authAction'
 import axios from 'axios'
 axios.defaults.withCredentials=true
 function App() {
-     const {auth} = useSelector(state => state)
+     const {auth,theme} = useSelector(state => state)
      const dispatch = useDispatch()
      useEffect(() => {
        dispatch(refreshToken())
@@ -20,7 +20,7 @@ function App() {
       
          <Alert/>
          {/* <Toasts /> */}
-      <input type="checkbox"  id="theme" />
+      <input type="checkbox" checked={theme? true : false}  id="theme" />
         <div className="App">
           <div className="main">
             {auth.token && <Header/>}
