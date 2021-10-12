@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import {useHistory,Link} from 'react-router-dom'
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { register } from '../redux/actions/authAction';
 
 
 const Register = () => {
 
 
-    const auth = useSelector(state => state.auth)
+    const {auth,alert} = useSelector(state => state)
     const history=useHistory()
 
     const initialState = { 
@@ -19,20 +20,25 @@ const Register = () => {
 
     const [typePass, setTypePass] = useState(false)
     const [typeCfPass, setTypeCfPass] = useState(false)
-
+    const dispatch=useDispatch()
     useEffect(()=>{
         if(auth.token){
             history.push('/')
         }
     },[auth.token,history])  
+    useEffect(()=>{
+       
+       
+    },[])
     const handleChangeInput=(e)=>{
         const {name,value}=e.target
         setUserData({...userData,[name]:value})
+        
     }
     const handleSubmit=e=>{
       e.preventDefault()
-      console.log(userData)
-      //dispatch(login(userData))
+      //console.log(userData)
+      dispatch(register(userData))
     }
     return (
         <div className="container">
@@ -42,39 +48,60 @@ const Register = () => {
               <div className="card-body p-4 p-sm-5">
                 <h5 className="card-title text-center mb-5 fw-light fs-5">Sign Up</h5>
                 <form onSubmit={handleSubmit}>
-                  <div className="form-floating mb-4">
-                    <input type="text" className="form-control" id="floatingInput" placeholder="Full Name" onChange={handleChangeInput} name="fullname" value={fullname} />
+                  <div className="form-floating mb-5">
+                    <input type="text" className="form-control" id="floatingInput" placeholder="Full Name" onChange={handleChangeInput} name="fullname" value={fullname}
+                    style={{background: `${alert.fullname ? '#fd2d6a14' : ''}`}} />
                     <label htmlFor="floatingInput">Full Name</label>
+                    <small className="form-text text-danger  " style={{float: 'left'}}>
+                        {alert.fullname ? alert.fullname : ''}
+                    </small>
                   </div>
-                  <div className="form-floating mb-4">
-                    <input type="text" className="form-control" id="floatingInput" placeholder="User Name" onChange={handleChangeInput} name="username" value={username.toLowerCase().replace(/ /g,"")} />
+                  <div className="form-floating mb-5">
+                    <input type="text" className="form-control" id="floatingInput" placeholder="User Name" onChange={handleChangeInput} name="username" value={username.toLowerCase().replace(/ /g,"")}
+                    style={{background: `${alert.username ? '#fd2d6a14' : ''}`}} />
                     <label htmlFor="floatingInput">User Name</label>
+                    <small className="form-text text-danger  " style={{float: 'left'}}>
+                        {alert.username ? alert.username : ''}
+                    </small>
                   </div>
-                  <div className="form-floating mb-4">
-                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" onChange={handleChangeInput} name="email" value={email} />
+                  <div className="form-floating mb-5">
+                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" onChange={handleChangeInput} name="email" value={email}
+                    style={{background: `${alert.email ? '#fd2d6a14' : ''}`}} />
                     <label htmlFor="floatingInput">Email address</label>
+                    <small className="form-text text-danger  " style={{float: 'left'}}>
+                        {alert.email ? alert.email : ''}
+                    </small>
                   </div>
-                  <div className="form-floating mb-4">
-                    <input type={ typePass ? "text" : "password" }  className="form-control" id="floatingPassword" placeholder="Password" onChange={handleChangeInput} name="password" value={password}/>
+                  <div className="form-floating mb-5">
+                    <input type={ typePass ? "text" : "password" }  className="form-control" id="floatingPassword" placeholder="Password" onChange={handleChangeInput} name="password" value={password} 
+                    style={{background: `${alert.password ? '#fd2d6a14' : ''}`}}/>
                    
                     <label htmlFor="floatingPassword">Password</label>
                     <small onClick={() => setTypePass(!typePass)} style={{float:'right', position: 'absolute', bottom: '15px',right:'10px' }}>
                             {typePass ? <VisibilityOffIcon/> : <VisibilityIcon/>}
                         </small>
+                        <small className="form-text text-danger  " style={{float: 'left'}}>
+                        {alert.password ? alert.password : ''}
+                    </small>
+                        
                    
                   </div>
-                  <div className="form-floating mb-4">
-                    <input type={ typeCfPass ? "text" : "password" }  className="form-control" id="floatingPassword" placeholder="Confirm Password" onChange={handleChangeInput} name="cf_password" value={cf_password}/>
+                  <div className="form-floating mb-5">
+                    <input type={ typeCfPass ? "text" : "password" }  className="form-control" id="floatingPassword" placeholder="Confirm Password" onChange={handleChangeInput} name="cf_password" value={cf_password}
+                    style={{background: `${alert.cf_password ? '#fd2d6a14' : ''}`}}/>
                     <small onClick={() => setTypeCfPass(!typeCfPass)} style={{float:'right', position: 'absolute', bottom: '15px',right:'10px' }}>
                             {typeCfPass ? <VisibilityOffIcon/> : <VisibilityIcon/>}
                         </small>
                     <label htmlFor="floatingPassword">Confirm Password</label>
+                    <small className="form-text text-danger  " style={{float: 'left'}}>
+                        {alert.cf_password ? alert.cf_password : ''}
+                    </small>
                    
                   </div>
-                  <div className='mb-4 d-flex justify-content-start p-auto'>
+                  <div className='mb-5 d-flex justify-content-start p-auto'>
                   <div className="form-check form-check-inline ">
                     <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="radio"
                         name="gender"
                         id="Male"

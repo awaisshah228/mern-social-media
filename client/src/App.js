@@ -4,14 +4,13 @@ import Login from './pages/login'
 import Home from './pages/home'
 import PageRender from './PageRender'
 import Alert from './components/alert/Alert'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Toasts from './components/alert/Toasts'
+import Header from './components/Header'
 import { useSelector,useDispatch } from 'react-redux'
 import {refreshToken} from './redux/actions/authAction'
 import axios from 'axios'
 axios.defaults.withCredentials=true
 function App() {
-     const auth = useSelector(state => state.auth)
+     const {auth} = useSelector(state => state)
      const dispatch = useDispatch()
      useEffect(() => {
        dispatch(refreshToken())
@@ -24,6 +23,7 @@ function App() {
       <input type="checkbox"  id="theme" />
         <div className="App">
           <div className="main">
+            {auth.token && <Header/>}
            <Route exact path='/' component={auth.token ? Home : Login} ></Route>
            <Route exact path='/:page' component={PageRender} ></Route>
            <Route exact path='/:page/:id' component={PageRender} ></Route>
