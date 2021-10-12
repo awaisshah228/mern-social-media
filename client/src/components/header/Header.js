@@ -7,8 +7,9 @@ import MessageIcon from '@mui/icons-material/Message';
 import GroupIcon from '@mui/icons-material/Group';
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 import {useSelector,useDispatch} from 'react-redux'
-import {logout} from '../redux/actions/authAction'
-import { GLOBALTYPES } from '../redux/actions/globalType';
+import {logout} from '../../redux/actions/authAction'
+import { GLOBALTYPES } from '../../redux/actions/globalType';
+import Search from './Search';
 
 
 const Header = () => {
@@ -29,27 +30,22 @@ const Header = () => {
         <div>
                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                     <Container>
-                    <Navbar.Brand href="#home">Media</Navbar.Brand>
+                    <Navbar.Brand href="/">Media</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav" >
-                        <Nav className="me-auto">
-                           
-                        {/* <Link to='/' className='nav-link'>Home</Link> */}
-                        {/* <Nav.Link href="#">HIih</Nav.Link>
-                        <Nav.Link href="#pricing">Feed</Nav.Link> */}
-                        
-                        </Nav>
-                        <Nav>
+                       
+                        <Search/>
+                        <Nav className='my-auto'>
                         {
                                 navlinks.map((link,index)=>{
-                                  return(<Link key={index} to={link.path} className={`nav-link ${isActive(link.path)}`}>{link.icon}</Link>)  
+                                  return(<Link key={index} to={link.path} className={`nav-link my-auto  ${isActive(link.path)}`}>{link.icon}</Link>)  
                                   //<h1>hello</h1>
                                 })
                             }
                             {/* <Link  to='/' className={'nav-link active'}><HomeIcon/></Link> */}
                         {/* <NavDropdown.Toggle id="collasible-nav-dropdown">Pow! Zoom!</NavDropdown.Toggle> */}
-                        <NavDropdown title={<AccountCircleIcon/>} id="collasible-nav-dropdown" className='mx-3'>
-                            <Link  to="/profile" className='dropdown-item'>Profle</Link>
+                        <NavDropdown title={auth.user.avatar?<img className='img-fluid' src={auth.user.avatar} style={{height:'40px',width:'40px',borderRadius:"50%"}}/>:<AccountCircleIcon/>} id="collasible-nav-dropdown" className='mx-2 my-auto'>
+                            <Link  to={`/profile/${auth.user._id}`} className='dropdown-item'>Profle</Link>
                             <Link  to="/" className='dropdown-item'  onClick={() => dispatch({type: GLOBALTYPES.THEME, payload: !theme  })}>{theme?"LightMode": "Dark Mode"}</Link>
                             <NavDropdown.Divider />
                             <Link  to="/" className='dropdown-item' onClick={()=>dispatch(logout())}>Logout</Link>
