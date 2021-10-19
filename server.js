@@ -32,6 +32,8 @@ app.post('/',(req,res)=>{
     res.json({msg: "hi"})
 })
 app.use('/api',require('./routes/authRouter'))
+app.use('/api',require('./routes/userRouter'))
+
 
 
 

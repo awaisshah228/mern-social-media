@@ -40,10 +40,16 @@ code {
   border-color: #0c0b0b !important;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(17, 16, 16, 0.6) !important;
 }
+
+@media (max-width:990){
+  .search-box{
+    width: 100px !important;
+  }
+}
 /* */
 @media (max-width: 768px) {
 
-  .navbar-collapse {
+  /* .navbar-collapse {
     position: absolute;
     top: 54px;
     left: 0;
@@ -69,10 +75,49 @@ code {
     -o-transition: left 0.3s ease-in;
     -moz-transition: left 0.3s ease-in;
     transition: left 0.3s ease-in;
-  }
+  } */
+  .dropd{
+    position: absolute ;
+    left: 30px ; 
+    z-index: 50;
+    width: 80%;
+    /* transform: translateY(-20px);  */
+ }
+ .menu-bot{
+  position: fixed;
+  flex-direction: row;
+  bottom: 0px;
+  left: 0px;
+  background: black;
+  justify-content: space-around;
+  width: 100%;
+ }
+  
   
   
 }
+/* @media (max-width:990px) {
+  .dropd{
+    position: absolute ;
+    left: 30px ; 
+    z-index: 50;
+    width: 80%;
+    transform: translateY(-20px); 
+ }
+ .menu-bot{
+  position: fixed;
+  flex-direction: row;
+  bottom: 0px;
+  background: black;
+  justify-content: space-around;
+  width: 100%;
+ }
+  
+  
+} */
 /* .dropdown-toggle::after {
   display:none;
 } */
+@import url('./styles/avatar.css');
+@import url('./styles/search.css');
+
