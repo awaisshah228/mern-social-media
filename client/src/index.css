@@ -78,9 +78,9 @@ code {
   } */
   .dropd{
     position: absolute ;
-    left: 30px ; 
+    left: 20% ; 
     z-index: 50;
-    width: 80%;
+    width: 60%;
     /* transform: translateY(-20px);  */
  }
  .menu-bot{
@@ -92,7 +92,12 @@ code {
   justify-content: space-around;
   width: 100%;
  }
-  
+ .dropdown.show .dropdown-menu{
+   position: fixed ;
+   top: 50%;
+    left: 70%;
+ }
+ 
   
   
 }

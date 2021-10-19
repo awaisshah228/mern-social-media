@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const {search}=useSelector(state=>state)
   const [users, setusers] = useState(search)
+  
   return (
     <div>
       <Navbar collapseOnSelect  bg="dark" variant="dark">

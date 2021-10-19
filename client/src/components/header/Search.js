@@ -23,6 +23,7 @@ const Search = () => {
           username : search
         }
       })
+      setsearch('')
 
   }
   useEffect(()=>{
@@ -63,7 +64,7 @@ const Search = () => {
                 {
                   users && users.map(user=>(
                   //  
-                  <Link className='nav-link py-1 ' to={`/profile/${user._id}`} key={user._id}> 
+                  <Link className='nav-link py-1 ' to={`/profile/${user._id}`} key={user._id} onClick={()=>setsearch('')}> 
                     <UserCard user={user} ></UserCard>
                   </Link>
                   //console.log(user)

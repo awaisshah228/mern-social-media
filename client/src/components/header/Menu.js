@@ -63,7 +63,7 @@ const Menu = () => {
           id="collasible-nav-dropdown"
           className={`mx-2 my-auto ` }
           // align={{ lg: 'end' }}
-          // drop={{sm: 'up'}}
+           
   
         >
           <Link to={`/profile/${auth.user._id}`} className="dropdown-item">
