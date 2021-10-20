@@ -6,9 +6,11 @@ import UserCard from "../UserCard";
 import {Link,useHistory} from 'react-router-dom'
 import { GLOBALTYPES } from "../../redux/actions/globalType";
 import '../../styles/search.css'
+import { CircularProgress } from "@mui/material";
 //import 'client\src\styles\search.css'
 const Search = () => {
   const [search, setsearch] = useState('')
+  const [loading, setloading] = useState(false)
   const [users, setusers] = useState('')
   const {auth} = useSelector(state => state)
   const history=useHistory()
@@ -16,6 +18,7 @@ const Search = () => {
   const dispatch = useDispatch()
   
   const handleSubmit=(e)=>{
+      setloading(true)
       e.preventDefault()
       history.push({
         pathname : '/search',
@@ -23,14 +26,18 @@ const Search = () => {
           username : search
         }
       })
+      setloading(false)
       setsearch('')
+      setusers([])
 
   }
   useEffect(()=>{
       if(search && auth.token){
+        setloading(true)
         getDataAPI(`search?username=${search}`,auth.token).then(res=> setusers(res.data.users)).catch(err=> {
           dispatch({type: GLOBALTYPES.ALERT, payload:{error: err.response.data.msg} })
         })
+        setloading(false)
         // console.log(users)
       }
       if(!search){
@@ -51,6 +58,13 @@ const Search = () => {
               onChange={e=> {setsearch(e.target.value)}}
               
             />
+            { 
+              loading && <small style={{position: 'absolute', right: '50px', top:'5px'}} className=''><CircularProgress style={{width:'25px',height:'25px'}} /></small> 
+            }
+              
+            
+            
+
             <div className="input-group-append" style={{opacity : search ? 100 : 0.3}} >
               <button className="btn btn-secondary" type="submit">
                 <i className="fa fa-search"></i>

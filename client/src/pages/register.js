@@ -159,7 +159,7 @@ const Register = () => {
                     </button>
                   </div> */}
                   <div className="text-center">
-                    <Link to='/login'>Login Now</Link>
+                    <Link to='/'>Login Now</Link>
                   </div>
                 </form>
               </div>
