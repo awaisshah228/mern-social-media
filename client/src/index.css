@@ -97,6 +97,7 @@ code {
    top: 75%;
     left: 70%;
  }
+
  
   
   
@@ -125,4 +126,8 @@ code {
 } */
 @import url('./styles/avatar.css');
 @import url('./styles/search.css');
+.btn .btn:active{
+   
+
+}
 

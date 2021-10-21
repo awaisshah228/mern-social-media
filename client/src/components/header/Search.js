@@ -54,7 +54,7 @@ const Search = () => {
               className="form-control"
               placeholder="Search this blog"
               size='50'
-              htmlfor='search-box'
+              htmlFor='search-box'
               onChange={e=> {setsearch(e.target.value)}}
               
             />

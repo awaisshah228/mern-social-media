@@ -29,7 +29,7 @@ const Menu = () => {
     if (pn === pathname) return "active";
   };
   const { innerWidth: width, innerHeight: height } = window;
-  console.log(width)
+  // console.log(width)
   return (
     <>
       <Nav className="menu-bot my-auto">
