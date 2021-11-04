@@ -11,6 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* .fronti{
+  z-index: 999999999 !important;
+} */
 #theme{
   display: none;
 }
@@ -45,6 +48,14 @@ code {
   .search-box{
     width: 100px !important;
   }
+  .ldp{
+    background-color:rgba(73, 73, 68,0.7);
+    position: fixed;
+    z-index: 2;
+    margin: 0%;
+    width: 100%;
+    height: 100%;
+}
 }
 /* */
 @media (max-width: 768px) {
@@ -102,6 +113,12 @@ code {
   
   
 }
+@media (max-width: 380px) {
+  .infopro{
+    margin-top: 15px;
+  }
+  
+}
 /* @media (max-width:990px) {
   .dropd{
     position: absolute ;
@@ -126,8 +143,6 @@ code {
 } */
 @import url('./styles/avatar.css');
 @import url('./styles/search.css');
-.btn .btn:active{
-   
 
-}
+
 

@@ -32,6 +32,9 @@ const Search = () => {
 
   }
   useEffect(()=>{
+    if(!search){
+      setusers('')
+    }
       if(search && auth.token){
         setloading(true)
         getDataAPI(`search?username=${search}`,auth.token).then(res=> setusers(res.data.users)).catch(err=> {
@@ -40,9 +43,7 @@ const Search = () => {
         setloading(false)
         // console.log(users)
       }
-      if(!search){
-        setusers('')
-      }
+     
   },[search,auth.token,dispatch])
   return (
     <>
@@ -78,7 +79,8 @@ const Search = () => {
                 {
                   users && users.map(user=>(
                   //  
-                  <Link className='nav-link py-1 ' to={`/profile/${user._id}`} key={user._id} onClick={()=>setsearch('')}> 
+                  <Link className='nav-link py-1 ' to={`/profile/${user._id}`} key={user._id} onClick={()=>{setsearch('')
+                  setusers([])}}> 
                     <UserCard user={user} ></UserCard>
                   </Link>
                   //console.log(user)

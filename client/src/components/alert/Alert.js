@@ -7,7 +7,7 @@ const Alert = () => {
      const state = useSelector(state => state)
      const {alert}=state
     return (
-        <div>
+        <div style={{zIndex:'1058'}}>
             {alert.loading && <Loading/>}
             <Toasts/>
 

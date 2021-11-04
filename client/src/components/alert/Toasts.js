@@ -12,7 +12,7 @@ const Toasts = () => {
       <ToastContainer
         position="top-end"
         className="p-3"
-        style={{ zIndex: 50, position: "static" }}
+        style={{ zIndex: 1058, position: "static" }}
       >
         {alert.error && (
           <SingleToast
