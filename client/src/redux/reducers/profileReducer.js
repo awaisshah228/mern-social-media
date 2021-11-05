@@ -1,4 +1,5 @@
 import { PROFILE_TYPES } from "../actions/profileAction";
+import { EditData } from "../actions/globalType";
 
 const initialState={
     loading : false,
@@ -13,11 +14,23 @@ const profileReducer=(state=initialState,action)=>{
                 loading: action.payload
             }   
         case PROFILE_TYPES.GET_USER:
-            console.log(action.payload)
+              // console.log(action.payload)
             return {
                 ...state,
                 users: [...state.users,action.payload.user]
             }   
+        case PROFILE_TYPES.FOLLOW:
+            // console.log(action.payload)
+            return{
+                ...state,
+                users: EditData(state.users, action.payload._id, action.payload)
+            } 
+        case PROFILE_TYPES.UNFOLLOW:
+            // console.log(action.payload)
+            return{
+                ...state,
+                users: EditData(state.users, action.payload._id, action.payload)
+            } 
         default:
             return state
            

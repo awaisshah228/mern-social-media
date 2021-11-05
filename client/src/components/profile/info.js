@@ -24,7 +24,7 @@ const Info = () => {
       const newData = profile.users.filter((user) => user._id === id);
       setuserData(newData);
     }
-  }, [id]);
+  }, [id, auth, dispatch, profile.users]);
   //console.log(id)
   return (
     <div className="">
@@ -54,7 +54,7 @@ const Info = () => {
               <div className="d-flex justify-content-between">
                 {user.username}
                 {
-                    user._id === auth.user._id ? <EditProfile />: <FollowBtn />
+                    user._id === auth.user._id ? <EditProfile />: <FollowBtn user={user} />
                 }
                  
                 
