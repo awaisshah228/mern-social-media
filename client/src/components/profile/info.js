@@ -8,9 +8,14 @@ import img2 from "../../images/bg1.jpg";
 import EditProfile from "./EditProfile";
 import { getProfileUsers } from "../../redux/actions/profileAction";
 import FollowBtn from "../FollowBtn";
+import Followers from "./followers";
+import Following from "./following";
 const Info = () => {
   const { id } = useParams();
   const { auth, profile } = useSelector((state) => state);
+
+  const [showFollowers, setShowFollowers] = useState(false);
+  const [showFollowing, setShowFollowing] = useState(false);
 
   const dispatch = useDispatch();
   const [userData, setuserData] = useState([]);
@@ -53,33 +58,56 @@ const Info = () => {
             >
               <div className="d-flex justify-content-between">
                 {user.username}
-                {
-                    user._id === auth.user._id ? <EditProfile />: <FollowBtn user={user} />
-                }
-                 
-                
+                {user._id === auth.user._id ? (
+                  <EditProfile />
+                ) : (
+                  <FollowBtn user={user} />
+                )}
               </div>
 
               <div className="d-flex  ">
-                <span className="" style={{ marginRight: "5px" }}>
+                <span
+                  className="follows"
+                  style={{ marginRight: "5px" }}
+                  onClick={() => setShowFollowers(true)}
+                >
                   {user.followers.length} Followers
                 </span>
-                <span>{user.following.length} Following</span>
+                <span
+                  className="follows"
+                  onClick={() => setShowFollowing(true)}
+                >
+                  {user.following.length} Following
+                </span>
               </div>
               <h6>
-                {user.fullname}{" "}
-                <br />
+                {user.fullname} <br />
                 {/* <span className="text-danger">{user.mobile}</span> */}
               </h6>
               <p className="m-0">Address : {user.address}</p>
               <h6 className="m-0">Email :{user.email}</h6>
-              
+
               <a href={user.website} target="_blank" rel="noreferrer">
-              {user.website}
+                {user.website}
               </a>
-              <p style={{textAlign : 'center'}}>{user.story}</p>
+              <p style={{ textAlign: "center" }}>{user.story}</p>
             </div>
             {/* <img src={img1} alt="" /> */}
+            {showFollowers && (
+              <Followers
+                users={user.followers}
+                setShowFollowers={setShowFollowers}
+                showFollowers={showFollowers}
+              />
+            )}
+            {showFollowing && (
+              <Following
+                users={user.following}
+                setShowFollowing={setShowFollowing}
+                showFollowing={showFollowing}
+
+              />
+            )}
           </div>
         </div>
       ))}

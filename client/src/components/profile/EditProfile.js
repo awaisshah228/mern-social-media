@@ -205,6 +205,7 @@ const handleSubmit=(e)=>{
               <button
                 className="btn btn-primary btn-login text-uppercase fw-bold"
                 type="submit"
+                onClick={handleClose}
               >
                 Edit Profile
               </button>

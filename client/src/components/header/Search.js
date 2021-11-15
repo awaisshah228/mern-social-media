@@ -79,10 +79,10 @@ const Search = () => {
                 {
                   users && users.map(user=>(
                   //  
-                  <Link className='nav-link py-1 ' to={`/profile/${user._id}`} key={user._id} onClick={()=>{setsearch('')
+                  <div   key={user._id} onClick={()=>{setsearch('')
                   setusers([])}}> 
                     <UserCard user={user} ></UserCard>
-                  </Link>
+                  </div>
                   //console.log(user)
                   ))
                 }

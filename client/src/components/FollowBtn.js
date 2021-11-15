@@ -17,9 +17,16 @@ const FollowBtn = ({ user }) => {
   }
   const handleUnFollow=()=>{
       setfollowed(false)
+      // console.log(user)
       dispatch(unfollow({users: profile.users,user,auth}))
      
   }
+  useEffect(() => {
+    if(auth.user.following.find(item => item._id === user._id)){
+        setfollowed(true)
+    }
+    return () => setfollowed(false)
+}, [auth.user.following, user._id,dispatch])
   return (
     <div>
       {followed ? (

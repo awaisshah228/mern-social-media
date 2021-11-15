@@ -67,7 +67,7 @@ const Menu = () => {
   
         >
           <Link to={`/profile/${auth.user._id}`} className="dropdown-item">
-            Profle
+            Profile
           </Link>
           <Link
             to="/"
