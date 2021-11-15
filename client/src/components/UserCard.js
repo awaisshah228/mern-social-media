@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 const UserCard = ({ children,user,handleClose}) => {
   
   return (
-    <>
-    <Link className='nav-link py-1 hoveri  ' to={`/profile/${user._id}`} style={{color : "white"}} onClick={handleClose}>
+    <div className="d-flex shadow-lg   p-2  align-item-center bg-dark border-bottom">
+    <Link className='nav-link py-1 hoveri  ' to={`/profile/${user._id}`} style={{color : "white"}} >
 
-     <div className="d-flex shadow-lg   p-2  align-item-center bg-dark border-bottom">
+     <div className="d-flex " onClick={handleClose}>
         <div>
           <Avatar src={user.avatar} size="big-avatar" />
         </div>
@@ -19,14 +19,15 @@ const UserCard = ({ children,user,handleClose}) => {
 
           <small style={{ opacity: 0.7 }}>{user.fullname}</small>
         </div>
-        <div className="my-auto" style={{marginLeft: "auto"}}>
-        {children}
-        </div>
+        
         
       </div>
     </Link>
+    <div className="my-auto" style={{marginLeft: "auto"}}>
+        {children}
+        </div>
      
-    </>
+    </div>
   );
 };
 
