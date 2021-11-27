@@ -19,7 +19,7 @@ function App() {
   }, [dispatch]);
   return (
     <Router>
-      <Alert />
+      <Alert /> 
       {/* <Toasts /> */}
       <input
         type="checkbox"
