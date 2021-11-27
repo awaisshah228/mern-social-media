@@ -1,12 +1,79 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import ImageIcon from "@mui/icons-material/Image";
+import { GLOBALTYPES } from "../redux/actions/globalType";
 
 const StatusModal = ({ show, handleClose }) => {
   const [content, setcontent] = useState("");
-  const { auth } = useSelector((state) => state);
+  const [images, setImages] = useState([])
+  const [stream, setStream] = useState(false)
+  const videoRef = useRef()
+  const refCanvas = useRef()
+  const [tracks, setTracks] = useState('')
+
+
+  const { auth,theme } = useSelector((state) => state);
+  const dispatch=useDispatch()
+
+  const handleChangeImages=(e)=>{
+    //   console.log(e.target.files)
+    const files = [...e.target.files]
+    
+    let err = ""
+    let newImages = []
+
+    files.forEach(file => {
+        console.log(file)
+        if(!file) return err = "File does not exist."
+
+        if(file.size > 1024 * 1024 * 5){
+            console.log("done")
+            return err = "The image/video largest is 5mb."
+        }
+
+        return newImages.push(file)
+    })
+
+    if(err) dispatch({ type: GLOBALTYPES.ALERT, payload: {error: err} })
+    setImages([...images, ...newImages])
+  }
+  const deleteImages = (index) => {
+    const newArr = [...images]
+    newArr.splice(index, 1)
+    setImages(newArr)
+}
+
+const handleStream = () => {
+    setStream(true)
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+        navigator.mediaDevices.getUserMedia({video: true})
+        .then(mediaStream => {
+            videoRef.current.srcObject = mediaStream
+            videoRef.current.play()
+
+            const track = mediaStream.getTracks()
+            setTracks(track[0])
+        }).catch(err => console.log(err))
+    }
+}
+const handleStopStream = () => {
+    tracks.stop()
+    setStream(false)
+}
+const handleCapture = () => {
+    const width = videoRef.current.clientWidth;
+    const height = videoRef.current.clientHeight;
+
+    refCanvas.current.setAttribute("width", width)
+    refCanvas.current.setAttribute("height", height)
+
+    const ctx = refCanvas.current.getContext('2d')
+    ctx.drawImage(videoRef.current, 0, 0, width, height)
+    let URL = refCanvas.current.toDataURL()
+    setImages([...images, {camera: URL}])
+}
 
   return (
     <div>
@@ -23,29 +90,61 @@ const StatusModal = ({ show, handleClose }) => {
                   id=""
                   rows="4"
                   cols="50"
-                  className="form-control"
+                  className="form-control mb-3"
                   placeholder={`${auth.user.username} , What are You Thinking?`}
                   onChange={(e) => setcontent(e.target.value)}
                 ></textarea>
+
+                <div className="d-flex flex-row flex-wrap mb-3" >
+                        {
+                            images.map((image,index)=>(
+                                <div key={index} style={{flexBasis:"32%" ,margin:2 ,backgroundColor: "black" ,position:"relative"}} >
+                                  <img src={image.camera ? image.camera : URL.createObjectURL(image)} alt="images" style={{objectFit:"contain",width:"100%",height:"100%"}} className="" />
+                                  <span className="close-img btn" onClick={()=>deleteImages(index)} > &times;</span>
+
+                                  
+                                </div>
+                            ))
+                        }
+                </div>
+                {
+                        stream && 
+                        <div className="stream " style={{position: "relative"}}>
+                            <video autoPlay muted ref={videoRef} width="100%" height="100%"
+                            style={{filter: theme ? 'invert(1)' : 'invert(0)'}} />
+                            
+                            <span className="close-img" onClick={handleStopStream}>&times;</span>
+                            <canvas ref={refCanvas} style={{display: 'none'}} />
+                        </div>
+                    }
               </div>
               <div className="mb-3">
-                <label htmlFor="file1" className="m-2">
+                  {
+                      stream ?<label htmlFor="camera" className="m-2 btn" onClick={handleCapture}>
+                      <CameraAltIcon style={{color: "blue"}}/>
+                    </label> : <label htmlFor="camera" className="m-2 btn" onClick={handleStream}>
                   <CameraAltIcon />
                 </label>
+                  }
+                
                 <input
-                  type="file"
+                  type="button"
                   name="file"
-                  id="file1"
-                  className="form-control d-none"
+                  id="camera"
+                  className="form-control d-none "
+                 
                 />
                 <label htmlFor="file2">
                   <ImageIcon />
                 </label>
                 <input
-                  type="button"
+                  type="file"
                   name="file"
                   id="file2"
                   className="form-control d-none"
+                  onChange={handleChangeImages}
+                  multiple
+                  accept="image/*,video/*"
                 />
               </div>
               <div className="" >

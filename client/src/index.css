@@ -193,6 +193,28 @@ code {
  .btn:active{
    transform: scale(0.9);
  }
+ .close-img{
+   position:absolute;
+   /*  */
+   top: -1px;
+   right: -2px;
+   z-index: 12;
+   background-color: black;
+   color: white;
+   /* font-size: 40px; */
+   border-radius: 50%;
+   padding: 3px 7px;
+   font-weight: bolder;
+   font-size: 10px;
+   transition: all 0.1s ease;
+ }
+ .close-img:hover{
+   color: white;
+   transform: scale(1.1);
+ }
+ .close-img:active{
+   transform: scale(0.9);
+ }
 
 
 

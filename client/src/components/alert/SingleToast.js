@@ -6,16 +6,16 @@ const SingleToast = (props) => {
   const [show, setshow] = useState(true);
   const dispatch = useDispatch()
   const alert = useSelector(state => state.alert)
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-       setshow(false);
-     }, 3000);
-     return () => {
-      clearTimeout(timeout)
-    }
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //      setshow(false);
+  //    }, 3000);
+  //    return () => {
+  //     clearTimeout(timeout)
+  //   }
     
 
-   },[]);
+  //  },[]);
   return (
     <>
       <Toast
@@ -26,6 +26,7 @@ const SingleToast = (props) => {
         }}
         show={show}
         className='fade'
+        
       >
         <Toast.Header>
           <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
