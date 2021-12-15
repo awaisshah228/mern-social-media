@@ -11,7 +11,7 @@ export const checkImage = (file) => {
     return err;
 }
 export const imageUpload=async (images)=>{
-    console.log(images)
+    // console.log(images)
 
     let imgArr = [];
     for(const item of images){
@@ -31,7 +31,7 @@ export const imageUpload=async (images)=>{
             body: formData
         })
         const data= await res.json()
-        console.log(data)
+        // console.log(data)
         imgArr.push({public_id: data.public_id, url: data.secure_url})
 
         

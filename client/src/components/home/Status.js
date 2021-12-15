@@ -12,8 +12,12 @@ const Status = () => {
     const { auth } = useSelector(state => state)
     const dispatch = useDispatch()
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () =>{setShow(false);
+        dispatch({type: GLOBALTYPES.STATUS,payload : false})
+} 
+    const handleShow = () =>{setShow(true)
+    dispatch({type: GLOBALTYPES.STATUS,payload : true})
+    } ;
 
     return (<>
         <div className="status my-3 d-flex">

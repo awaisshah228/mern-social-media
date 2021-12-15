@@ -2,7 +2,8 @@ export const GLOBALTYPES={
     AUTH: 'AUTH',
     ALERT : 'ALERT',
     THEME : 'THEME',
-    SEARCH : 'SEARCH'
+    SEARCH : 'SEARCH',
+    STATUS : 'STATUS'
 }
 export const EditData = (data, id, post) => {
     const newData = data.map(item => 

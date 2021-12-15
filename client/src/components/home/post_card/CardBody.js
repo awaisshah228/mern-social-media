@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Post = () => {
+const CardBody = () => {
     return (
         <div>
-            Post
+            CardBody
         </div>
     )
 }
 
-export default Post
+export default CardBody

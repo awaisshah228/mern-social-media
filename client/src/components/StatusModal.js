@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import ImageIcon from "@mui/icons-material/Image";
 import { GLOBALTYPES } from "../redux/actions/globalType";
-
+import { createPost } from "../redux/actions/postAction"
 const StatusModal = ({ show, handleClose }) => {
   const [content, setcontent] = useState("");
   const [images, setImages] = useState([])
@@ -14,7 +14,7 @@ const StatusModal = ({ show, handleClose }) => {
   const [tracks, setTracks] = useState('')
 
 
-  const { auth,theme } = useSelector((state) => state);
+  const { auth,theme ,status} = useSelector((state) => state);
   const dispatch=useDispatch()
 
   const handleChangeImages=(e)=>{
@@ -75,14 +75,36 @@ const handleCapture = () => {
     setImages([...images, {camera: URL}])
 }
 
+const handleSubmit = (e) => {
+  e.preventDefault()
+  if(images.length === 0)
+  return dispatch({ 
+      type: GLOBALTYPES.ALERT, payload: {error: "Please add your photo."}
+  })
+
+  // if(status.onEdit){
+  //     dispatch(updatePost({content, images, auth, status}))
+  // }else{
+      dispatch(createPost({content, images, auth}))
+  // }
+  
+
+  setcontent('')
+  setImages([])
+  if(tracks) tracks.stop()
+  dispatch({ type: GLOBALTYPES.STATUS, payload: false})
+  handleClose()
+}
+
   return (
     <div>
+      
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           {/* <Modal.Title>Modal heading</Modal.Title> */}
         </Modal.Header>
         <Modal.Body>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="d-flex flex-column">
               <div className="mb-3">
                 <textarea
@@ -148,7 +170,7 @@ const handleCapture = () => {
                 />
               </div>
               <div className="" >
-                  <Button variant="dark" className="outline-none w-100">Post</Button>
+                  <Button variant="dark" className="outline-none w-100" type="submit">Post</Button>
               </div>
             </div>
           </form>
